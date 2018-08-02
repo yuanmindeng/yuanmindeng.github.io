@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang=En>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="#微结构设计中Voronoi的应用 ##1.问题描述在十微米大小上的微结构可以改变物体的物理特性，使原本坚硬的材料变柔软，可以说物体宏观尺度上的机械性质能被微结构的几何性质影响。使用微结构控制材料的软硬程度的好处在于，微结构的使用能够使物体在保持强度的同时，有着更轻的重量，能够减少材料的使用，货运的消耗，且微结构能够使得在只有一种材质的情况下，使得物体的不同区域具有不同的硬度。 现如今，增材制造为">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微结构设计中Voronoi的应用">
+<meta property="og:url" content="http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/index.html">
+<meta property="og:site_name" content="Yuanmin Deng&#39;s homepage">
+<meta property="og:description" content="#微结构设计中Voronoi的应用 ##1.问题描述在十微米大小上的微结构可以改变物体的物理特性，使原本坚硬的材料变柔软，可以说物体宏观尺度上的机械性质能被微结构的几何性质影响。使用微结构控制材料的软硬程度的好处在于，微结构的使用能够使物体在保持强度的同时，有着更轻的重量，能够减少材料的使用，货运的消耗，且微结构能够使得在只有一种材质的情况下，使得物体的不同区域具有不同的硬度。 现如今，增材制造为">
+<meta property="og:locale" content="English">
+<meta property="og:image" content="http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/algorithm.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/result.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/orth2017.png">
+<meta property="og:image" content="http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/finger.png">
+<meta property="og:updated_time" content="2018-08-02T02:54:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微结构设计中Voronoi的应用">
+<meta name="twitter:description" content="#微结构设计中Voronoi的应用 ##1.问题描述在十微米大小上的微结构可以改变物体的物理特性，使原本坚硬的材料变柔软，可以说物体宏观尺度上的机械性质能被微结构的几何性质影响。使用微结构控制材料的软硬程度的好处在于，微结构的使用能够使物体在保持强度的同时，有着更轻的重量，能够减少材料的使用，货运的消耗，且微结构能够使得在只有一种材质的情况下，使得物体的不同区域具有不同的硬度。 现如今，增材制造为">
+<meta name="twitter:image" content="http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/algorithm.png">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>微结构设计中Voronoi的应用</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- rss -->
+    
+    
+</head>
+
+<body>
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fa fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fa fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/gabithume">Projects</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" href="/2018/03/14/hello-world/"><i class="fa fa-chevron-right" aria-hidden="true" onmouseover='$("#i-next").toggle();' onmouseout='$("#i-next").toggle();'></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up" aria-hidden="true" onmouseover='$("#i-top").toggle();' onmouseout='$("#i-top").toggle();'></i></a></li>
+        <li><a class="icon" href="#"><i class="fa fa-share-alt" aria-hidden="true" onmouseover='$("#i-share").toggle();' onmouseout='$("#i-share").toggle();' onclick='$("#share").toggle();return false;'></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/"><i class="fa fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/&text=微结构设计中Voronoi的应用"><i class="fa fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/&title=微结构设计中Voronoi的应用"><i class="fa fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/&is_video=false&description=微结构设计中Voronoi的应用"><i class="fa fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=微结构设计中Voronoi的应用&body=Check out this article: http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/"><i class="fa fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/&title=微结构设计中Voronoi的应用"><i class="fa fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/&title=微结构设计中Voronoi的应用"><i class="fa fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/&title=微结构设计中Voronoi的应用"><i class="fa fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/&title=微结构设计中Voronoi的应用"><i class="fa fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/&name=微结构设计中Voronoi的应用&description="><i class="fa fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3小结"><span class="toc-number">1.</span> <span class="toc-text">3.3小结</span></a></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index width mx-auto px2 my4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        微结构设计中Voronoi的应用
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Yuanmin Deng's homepage</span>
+      </span>
+      
+    <div class="postdate">
+        <time datetime="2018-07-22T13:05:48.000Z" itemprop="datePublished">2018-07-22</time>
+    </div>
+
+
+      
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>#微结构设计中Voronoi的应用</p>
+<p>##1.问题描述<br>在十微米大小上的微结构可以改变物体的物理特性，使原本坚硬的材料变柔软，可以说物体宏观尺度上的机械性质能被微结构的几何性质影响。使用微结构控制材料的软硬程度的好处在于，微结构的使用能够使物体在保持强度的同时，有着更轻的重量，能够减少材料的使用，货运的消耗，且微结构能够使得在只有一种材质的情况下，使得物体的不同区域具有不同的硬度。</p>
+<p>现如今，增材制造为实现微结构提供了一种相对低成本的方式。其中，三维打印的制造方式最为普遍。为了实现用单一材料打印柔性物体的目标，即使得物体不同部分具有不同的软硬程度，或是不同的拉伸、压缩特性，目前已有多种微结构的设计方法（详见第2节相关工作部分）。</p>
+<p>在微结构的设计方面，存在着很大挑战：<br>1.要实现物体在大尺度下指定的弹性行为，要么做难度很高的全局优化，要么用预先计算的微结构来填充整个空间，再用某种算法将其合成为整体。<br>2.微结构通常只有10微米大小的级别，相对于物体本身数十厘米级别，这在模拟、可视化、制造上都很有挑战性，例如对模拟的时间花费、准确程度，对内存容量和内存-硬盘间的数据交换等方面有很高的要求，<br>3.要用三维打印的制造方式制造这种微结构组成的材料，就要求微结构必须满足三维打印制造上的约束，例如连续性，不能有材料残余在孔隙中等等。具体取决于三维打印的具体工艺和三维打印机的精度。</p>
+<p>很自然地，开孔单胞(open-cell foam)往往用Voronoi图的边来产生[@Gibson1988]。本文主要讨论的是Martínez等人于2016年发表的文章[@Lefebvre2016Procedural] 以及其后续文章[@Mart2017Orthotropic][@martinez:hal-01697103] ，作者提出了用于超材料设计的过程式生成Voronoi图的方法，通过控制Voronoi单元的参数使得材料能具有特定的弹性力。</p>
+<p>##2.相关工作<br>在这一问题中微结构的设计方法，其中的一类是周期性的、可堆叠形成完整物体的微结构，这种设计方法被称作周期性基于分块的方法(periodic tile-based approaches)。</p>
+<p>2015年的Panetta等人的文章[@Panetta2015Elastic]中设计了一系列可打印的弹性体材质(elastic volumetric textures), 它的基本微结构单元使用了拓扑优化的方法得到，搜索了一系列打印时无需内支撑的三维桁架结构样式。该方法最终能够打印出具有指定弹性形变效果的材料。它的缺点在于，由杨氏模量(E)、泊松比(v)构成的空间(E,v)覆盖的范围非常有限，能够表现的弹性形变效果十分有限。</p>
+<p>同样是2015年的Schumacher的文章[@Schumacher2015Microstructures]也提出了一种用3d打印制造有弹性的、可变形物体的方法，用数值优化的方法设计微结构使其具有特定的性质。</p>
+<p>首先预先计算出多组超材料族(metamaterial family)。每一族的微结构由的插值结果都具有平滑的材料特性。这些族都会存储在数据库里，表达一个超材料空间。之后根据给定的材料参数，将微结构进行组合，得到想要的变形行为。在这一方法中不同的拓扑结构可能会有相同的变形表现。经过优化保证连通性后，最终能得到用于3D打印物理模型。</p>
+<p>两篇文章的共同点是都采用了拓扑优化的方法来得到基本的微结构单元，都基于以下假设：均质化(homogenization)只是作用在一个基础单元上，而非全局优化的结果。整体的结果是由基础单元的组合而来，即使已经事先优化有了好可以匹配到的边界，也需要对块间的边距进行而外的处理。另一个缺陷在于，如果在打印时希望物体的表面通常还具有外皮，这种周期性的网格结构就很难做到这一点。因此Martínez等人于2016年提出了一种随机、非周期性的、基于Voronoi图的材料设计方法[@Lefebvre2016Procedural]。</p>
+<p>##3.微结构设计中Voronoi的应用</p>
+<p>###3.1 算法基本思想和实现<br>该文章[@Lefebvre2016Procedural]中提到，Voronoi图是一种生成微结构的很好方式，用Voronoi可以生成满足制造需求的开孔单胞，同时也能够通过调整单胞的参数可以满足弹性需求，关键问题在于如何将微结构的几何参数和物体的弹性联系起来。作者的前提假设是只考虑设计各向同性的弹性材料。</p>
+<p>各项同性的弹性材料模型（例如常用的Neo-Hookean模型）可以由两项参数描述：杨氏模量(Young’s modulus)和泊松比(Poisson’s ratio)。这两项参数可以简单理解为，杨氏模量能描述一个物体的坚硬或柔软程度，而泊松比则描述了当材料在一个维度上拉伸时，在另一维度上会有怎样的表现。作者在文章中的假设是保持泊松比不变，只改变杨氏模量。</p>
+<p>该方法用两个参数来控制生成结构的弹性力，分别是</p>
+<ul>
+<li>密度$\rho$， Voronoi种子点在单位体积上的密度(种子数/$mm^3$)；</li>
+<li>半径$\tau$，Voronoi边(连杆)的半径。</li>
+</ul>
+<p>文中提出了生成开孔Voronoi单胞(open-cell  Voronoi foam)的算法。首先生成所有用于形成Voronoi cell的种子点。之后按Voronoi图的生成方式得出所有的边。</p>
+<p>那么要如何过程式地生成Voronoi单胞呢？受[@Worley:1996:CTB:237170.237267]的启发，作者的目标是寻找一个类似于计算机图形学中过程式纹理生成的方法，定义一个非周期性的过程式结构。该结构定义为一个函数$F: R^3 \rightarrow {0,1}$</p>
+<p>该函数除了要满足和过程式纹理类似的需求[Lagae et al.2010]之外，还需要满足用于三维打印的几何要求，例如尽量采用open-cell的结构，满足连续的要求等。</p>
+<p>为方便说明，以二维做例子，其生成方式算法描述如下：<br>1.输入某一点q和密度场$\rho$;<br>2.随机生成种子点;<br>3.划分Voronoi图；<br>4.检查q是否在半径为$\tau$的Voronoi的边内.<br><img src="./algorithm.png" alt="avatar"></p>
+<p>物体结构生成后可以用于光固化成型(Stereo Lithography Apparatus, SLA)打印机和选择性激光烧结打印机(Selective laser sintering, SLS)。对SLA打印机来说是提供切片后的图片，而对SLS打印机来说则是提取轮廓。</p>
+<p>##3.2 从设计的弹性表现到对应的结构参数<br>均质化(Homogenization)是从微观尺度的性质出发，得到宏观尺度性质的方法。因此我们可以通过在微观尺度上进行模拟，最终得到宏观尺度下等效的结构参数。作者使用六面体网格来做均质化，每个六面体的刚度可以通过调用超采样的隐式过程式函数得到。作者假设，非周期的单胞和周期性的单胞表现是类似的。基于该假设，周期性的Voronoi单胞虽然很难得到不同级别的弹性特性，但是可以利用它来做均质化，得到结构参数$\rho$和$\tau$对应的弹性表现。</p>
+<p>具体方法是，对于每一组$(\rho,\tau)$都用一个基本体生成对应的周期性结构，并计算该周期性材料的弹性张量。在生成多组$\rho$、$\tau$对应的数据之后，用这些数据重建$\rho$、$\tau$与杨氏模量、泊松比这些弹性性质参数的关系。为了使得得到目标杨氏模量，需要尽可能稠密地选择$\rho$和$\tau$，生成多组不同的结构，<br><img src="./result.png" alt="avatar"><br>上图是杨氏模量 E=1，泊松比 v=0.3时，每个点式对于给定的$(\rho,\tau)$的均质化结果。  对每个(\rho,\tao)作者生成了数组用不同随机种子生成的单胞。可以从图中看到点的分布实际上是一个个聚类，这说明随机性确实会对弹性性质造成一点微小的影响（最大偏移大约是杨氏模量的3.3%），这些数据点最终被用于拟合一个多项式方程——即结构参数与弹性性质参数的方程。</p>
+<h3 id="3-3小结"><a href="#3-3小结" class="headerlink" title="3.3小结"></a>3.3小结</h3><p>这种非周期性、随机的单胞结构生成方案能够更好的得到阶段性的弹性力，不需要再引入额外的边界条件。能够在切片的同时进行高效的运算，避免了复杂的全局优化过程。和[@Panetta2015Elastic]和[@Schumacher2015Microstructures]相比较在各向同性方面，虽然基于Voronoi的方法在各向同性上表现更差，但是在增大均质化的体积后，各向同性有显著上升。</p>
+<p>但这一方法也存在这局限性。这种单胞结构需要在体积足够大时才能够表现应有的弹性特性，这也是所有微结构设计的通用问题，这和均质化的方法有关。另外在大变形下连杆可能会折断。<br>这篇文章并没有研究这种结构下杨氏模量和泊松比直接间的关系，是在假设泊松比不便的情况下研究的。此外，本文方法只能用于构建各向同性的材料,如何生成各向异性材料也是非常有趣的课题。</p>
+<p>##3.4后续研究<br>MARTÍNEZ在2017的文章[@Mart2017Orthotropic]能够基于Voronoi生成的开孔单胞结构设计正交异性(Orthotropic)弹性材料，正交异性弹性材料的特性是，弹性力在三个正交轴上的表现可以是不相同的，例如下图中的椅子，座位和椅背相对较软，而椅子的其他部分（其他轴向）上仍然保持坚固。<br><img src="./orth2017.png" alt="avatar"><br>之前列举的工作中，微结构都是用光固化成型和激光烧结成型的工艺来制造的，很难用熔融沉积成型(Fused Filament Fabrication, FFF)的方式加工微结构，从微结构获得物体的弹性表现。而MARTÍNEZ在2018的文章[@martinez:hal-01697103]中实现了用于增材制造的多边形Voronoi图。这种多边形的Voronoi图能够满足连续、自支撑和一定的悬挂角，因此能够用熔融沉积成型方式的三维打印机进行加工，熔融沉积成型相对光固化成型和激光烧结成型是比较廉价的三维打印方式，同时有着多种材料可以用于打印，例如塑料、可食用材料、尼龙、金属高分子化合物、碳纤维材料等等，可以说大大扩展了材料的制造工艺。<br>另外不同于前两篇论文，该篇文章采用的是闭孔单胞，能够控制单胞的密度和各向异性。<br><img src="./finger.png" alt="avatar"><br>上图中手指的关节连接处的闭孔单胞和其他部分有着不同密度和各向异性的，可以用熔融沉积成型打印机用橡胶材料打印得到。</p>
+<p>##4.思考与总结<br>目前用微结构设计柔性材料的问题已经进展到了能够设计一定限度内的杨氏模量、泊松比变化，能够设计各向同性、正交异性和各向异性材料。实际上柔性物体的变形中还有一些有趣且实用的参数可以控制，比如能够设计材料的阻尼力等，这样能使材料设计的自由度有更大的提高。另一方面，目前的微结构设计方法都很依赖于均质化，如果从均质化的方法入手，或许能找到进一步优化算法，能够得到更与期望相符合变形行为。</p>
+<p>##5.参考文献</p>
+
+  </div>
+</article>
+
+
+
+    </div>
+    
+      <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/gabithume">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3小结"><span class="toc-number">1.</span> <span class="toc-text">3.3小结</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/"><i class="fa fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/&text=微结构设计中Voronoi的应用"><i class="fa fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/&title=微结构设计中Voronoi的应用"><i class="fa fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/&is_video=false&description=微结构设计中Voronoi的应用"><i class="fa fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=微结构设计中Voronoi的应用&body=Check out this article: http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/"><i class="fa fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/&title=微结构设计中Voronoi的应用"><i class="fa fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/&title=微结构设计中Voronoi的应用"><i class="fa fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/&title=微结构设计中Voronoi的应用"><i class="fa fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/&title=微结构设计中Voronoi的应用"><i class="fa fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://yoursite.com/2018/07/22/微结构设计中Voronoi的应用/&name=微结构设计中Voronoi的应用&description="><i class="fa fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+      <ul>
+        <li id="toc"><a class="icon" href="#" onclick='$("#toc-footer").toggle();return false;'><i class="fa fa-list fa-lg" aria-hidden="true"></i> TOC</a></li>
+        <li id="share"><a class="icon" href="#" onclick='$("#share-footer").toggle();return false;'><i class="fa fa-share-alt fa-lg" aria-hidden="true"></i> Share</a></li>
+        <li id="top" style="display:none"><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fa fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a></li>
+        <li id="menu"><a class="icon" href="#" onclick='$("#nav-footer").toggle();return false;'><i class="fa fa-bars fa-lg" aria-hidden="true"></i> Menu</a></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+    
+    <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2018 Yuanmin Deng
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="http://github.com/gabithume">Projects</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
+<!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/meslo-LG/styles.css">
+<link rel="stylesheet" href="/lib/justified-gallery/justifiedGallery.min.css">
+
+
+<!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/jquery.justifiedGallery.min.js"></script>
+<script src="/js/main.js"></script>
+<!-- Google Analytics -->
+
+    <script type="text/javascript">
+        (function(i,s,o,g,r,a,m) {i['GoogleAnalyticsObject']=r;i[r]=i[r]||function() {
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-86660611-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+
+<!-- Disqus Comments -->
+
+
